@@ -3,6 +3,8 @@
 #define BitmapHeaderInfoFile_H_
 
 # include <cstdint>
+
+#pragma pack(2)
 struct BitmapHeaderInfoFile {
 	int32_t biSize = 40 ;		  //Header Size
 	int32_t biWidth;			 //Image width

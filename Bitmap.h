@@ -24,7 +24,7 @@ private:
 
 public:
 
-	Bitmap(int w, int h) :width(w), height(h), mPixels(new uint8_t[w * h * 3]{ }) { }
+	Bitmap(int w, int h) :width(w), height(h), mPixels(new uint8_t[width * height * 3]{ }) { }
 
 	bool writeBitmapfile(string filename)
 	{
@@ -45,7 +45,7 @@ public:
 
 		outputFile.write((char *)&file, sizeof(BitmapHeaderFile));
 		outputFile.write((char *)&fileheader, sizeof(BitmapHeaderInfoFile));
-		outputFile.write((char *)&mPixels, width*height*3);
+		outputFile.write((char *)mPixels.get(), width*height*3);
 
 		outputFile.close();
 
@@ -56,8 +56,14 @@ public:
 		return true;
 	}
 
-	void SetPixel(int x, int y, uint8_t red, uint8_t blue, uint8_t green)
+	void SetPixel(int x, int y, uint8_t red, uint8_t green, uint8_t blue)
 	{
+		uint8_t *ptr = mPixels.get();
+		ptr += (y * 3 * width) + x*3;
+		ptr[0] = blue;
+		ptr[1] = green;
+		ptr[2] = red;
+
 			
 	}
 
